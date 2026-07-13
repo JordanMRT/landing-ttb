@@ -1,0 +1,374 @@
+/* ============================================
+   TIME TO BINGE - Landing Page
+   Display: Unbounded | Body: Albert Sans | Mono: Nunito Sans
+   ============================================ */
+
+:root {
+  --bg: #1b1d2a;
+  --bg-elevated: #23263a;
+  --ink: #0e0f14;
+  --cream: #f2efe9;
+  --mustard: #e8a33d;
+  --coral: #e8636b;
+  --sage: #7c9885;
+  --muted: #8a8ea3;
+  --border: #34374d;
+  --radius: 14px;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --font-display: "Unbounded", sans-serif;
+  --font-body: "Albert Sans", sans-serif;
+  --font-mono: "Nunito Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--mustard); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+/* Grain discret pour casser le plat du fond sombre, façon pellicule */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 2rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-brand img {
+  width: 50px;
+}
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--cream);
+  border: 1px solid var(--border);
+  padding: 0.5em 1.1em;
+  border-radius: 999px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.nav-cta:hover { border-color: var(--mustard); color: var(--mustard); }
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4.5rem 1.6rem 5rem;
+  text-align: center;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  margin-bottom: 1.2rem;
+}
+.hero-title {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: 1.4rem;
+}
+.hero-title-accent { color: var(--mustard); }
+.hero-sub {
+  max-width: 52ch;
+  margin: 0 auto 2.4rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.hero-hint {
+  margin-top: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ---------- CTA "TICKET" (signature de la page) ---------- */
+.cta-ticket {
+  display: inline-flex;
+  align-items: stretch;
+  text-decoration: none;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cta-ticket:hover { transform: translateY(-3px) rotate(-0.4deg); box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55); }
+
+.cta-ticket-stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 1.1rem 1rem;
+  background: var(--mustard);
+  color: var(--ink);
+}
+.cta-ticket-stub-icon { font-size: 1.4rem; }
+.cta-ticket-stub-text {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.cta-ticket-perf {
+  width: 0;
+  border-left: 2px dashed rgba(14, 15, 20, 0.35);
+  position: relative;
+}
+.cta-ticket-perf::before,
+.cta-ticket-perf::after {
+  content: "";
+  position: absolute;
+  width: 14px; height: 14px;
+  background: var(--bg);
+  border-radius: 50%;
+  left: -8px;
+}
+.cta-ticket-perf::before { top: -7px; }
+.cta-ticket-perf::after { bottom: -7px; }
+
+.cta-ticket-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.1rem 1.8rem;
+}
+.cta-ticket-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--cream);
+  white-space: nowrap;
+}
+.cta-ticket-barcode { width: 120px; height: 20px; color: var(--muted); margin-left: -10px; }
+.cta-ticket-barcode rect { fill: currentColor; }
+
+.cta-ticket--compact .cta-ticket-main { padding: 1rem 1.6rem; }
+
+.cta-ticket-label-row { display: flex; align-items: center; gap: 0.5rem; }
+.cta-ticket-arrow {
+  width: .9rem; height: .9rem;
+  color: var(--mustard);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.cta-ticket:hover .cta-ticket-arrow { transform: translateX(4px); }
+
+/* ---------- SECTIONS génériques ---------- */
+main > section {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 5rem 1.6rem;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sage);
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+.section-title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- SCREENSHOTS (filmstrip) ---------- */
+.filmstrip {
+  display: flex;
+  gap: .4rem;
+  overflow-x: auto;
+  padding: 0.6rem 0.2rem 1.2rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.filmstrip::-webkit-scrollbar { display: none; }
+
+.screenshot-frame {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 10px 0 10px;
+}
+.screenshot-frame img {
+  width: 100%;
+  aspect-ratio: 9 / 18.5;
+  object-fit: cover;
+  border-radius: 22px;
+  outline: 6px solid var(--ink);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+}
+.screenshot-frame--missing img { display: none; }
+.screenshot-frame--missing::before {
+  content: "🎞️";
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 22px;
+  border: 2px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--muted);
+  background: var(--bg-elevated);
+}
+.screenshot-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---------- POURQUOI (story) ---------- */
+.story-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.6rem;
+  position: relative;
+}
+.story-card::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 1.2rem;
+  width: 0;
+  border-left: 2px dashed var(--border);
+  opacity: 0.5;
+}
+.story-card .section-eyebrow,
+.story-card .section-title { text-align: left; }
+.story-card .section-title { margin-bottom: 1.6rem; }
+.story-text {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+.story-text:last-of-type { margin-bottom: 1.6rem; }
+.story-signature {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--coral);
+}
+
+/* ---------- FONCTIONNALITÉS ---------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+.feature-ticket {
+  background: var(--bg-elevated);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.feature-ticket:hover { border-color: var(--mustard); transform: translateY(-2px); }
+.feature-icon { font-size: 1.6rem; display: block; margin-bottom: 0.8rem; }
+.feature-ticket h3 { font-size: 1.02rem; margin-bottom: 0.5rem; }
+.feature-ticket p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+.features-footnote {
+  text-align: center;
+  margin-top: 2.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ---------- CTA FINAL ---------- */
+.final-cta { text-align: center; padding-bottom: 6rem; }
+.final-cta .cta-ticket { margin-top: 1rem; }
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem 1.6rem 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 640px) {
+  .nav { padding: 1.1rem 1.2rem; }
+  .nav-brand span { display: none; }
+  main > section { padding: 3.4rem 1.2rem; }
+  .cta-ticket-label { font-size: .85rem; white-space: normal; }
+  .cta-ticket-main { padding: 1rem 1.3rem; }
+  .story-card { padding: 1.8rem; }
+  .story-card::before { left: .9rem; }
+}
